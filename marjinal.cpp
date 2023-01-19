@@ -109,14 +109,14 @@ uchar encode(const Point &a, const Point &b) {
     uchar equx  = (a.y == b.y);
     uchar equy  = (a.x == b.x);
 
-    return (up    and equy)  ? 0 :  // north
-           (up    and right) ? 1 :  // kuzey dogu
-           (right and equx)  ? 2 : // dogu
-           (down  and right) ? 3 : // guney dogu
-           (down  and equy)  ? 4 : // guney
-           (left  and down)  ? 5 : // guney batý
-           (left  and equx)  ? 6 : // batý
-                              7 ;  // kuzey batý
+    return (up    and equy)  ? 0 :  // the north
+           (up    and right) ? 1 :  // the north east
+           (right and equx)  ? 2 : // the east
+           (down  and right) ? 3 : // the south eas
+           (down  and equy)  ? 4 : // the south
+           (left  and down)  ? 5 : // the south west
+           (left  and equx)  ? 6 : // the west
+                              7 ;  // the north west
 }
 //counting countour and matching with freeman-chain-code
 void cv_vector(vector<uchar> relative3, string filename){ // vector u
