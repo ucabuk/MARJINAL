@@ -30,8 +30,8 @@ int nL, mL; // size of chaincode
 vector <int> xone, yone;
 string Aleft,Bright; //chaincode string
 int dp[MAX_N][MAX_N];
-Mat imgLaplacian; // Normally output
-Mat draw; //draw image from chaincode without size
+Mat imgLaplacian; // globally output
+Mat draw; //draw image from the chaincode without size
 Mat draw2(600,600,CV_8UC3,Scalar(0)); //draw image from chaincode with const size. This changes in line 353.
 string directory;
 /*string time_screen(){
