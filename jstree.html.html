@@ -1,0 +1,130 @@
+<html>
+<head>
+<!--[if IE]><script src="excanvas.js"></script><![endif]-->
+<title>Marjinal: Analysis Results for 'Data_arkadas'</title>
+<script language="JavaScript" src="knhx.js"></script>
+<script type="text/javascript">
+function toggle_usage() {
+	var z = document.getElementById("toggle-usage");
+	var x = document.getElementById("usage");
+	if (z.value == "Show Tree Plotter Description") {
+		x.style.display = "block";
+		z.value = "Hide Tree Plotter Description";
+	} else {
+		x.style.display = "none";
+		z.value = "Show Tree Plotter Description";
+	}
+}
+function download() {
+	var x = location.pathname;
+	alert(x);
+	var download = document.getElementById("download");
+	var image = document.getElementById("canvas").toDataURL("image/png").replace("image/png", "image/octet-stream");
+	download.setAttribute("href", image);
+	download.click();
+}
+</script>
+<style type="text/css">
+	#canvas { border: 1px solid #CCCCCC; }
+<!--
+	body { font: 12px "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif; }
+	textarea { font: 100% "consolas", "Andale Mono", Monaco, Courier, monospace; border: 1px solid; }
+--></style>
+</head>
+<body onLoad="knhx_init('canvas', 'nhx');">
+<h1>Marjinal: Analysis Results for 'Data_arkadas'</h1>
+<input type="button" id="toggle-usage" value="Show Tree Plotter Description" onClick="toggle_usage();">
+<!-- Documents begin here -->
+<div id="usage" style="display: none" >
+<div id="usage_in" style="background-color: #CCCCCC; padding: 20px;" >
+<p>Jstree is a web application as well as a Javascript library for parsing, manipulating and plotting phylogenetic trees in the Newick format. With Jstree, one can highlight subtrees or leaves, collapse nodes in viewing, swap children, reroot, delete clades, move nodes, and export tree images, all via mouse clicks. It is purely implemented in Javascript and HTML5, and is efficient enough for trees with hundreds leaves (half a second for a tree with 864 leaves), although the speed is web browser dependent.</p>
+
+<h2>Requirements</h2>
+
+<p>This page is known to be fully functional on Safari 5, Opera 10.5, Firefox 3.6 and Chrome. Image saving is not working in IE 8 due to the lack of <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>; editing is not working in iOS 4. Nonetheless, on Windows, Safari, Opera, Chrome and Firefox are recommended anyway because the Javascript engine in IE 6/7/8 is <a href="http://blogs.msdn.com/b/ie/archive/2010/03/18/the-new-javascript-engine-in-internet-explorer-9.aspx">far too slow</a> and because `canvas' is not natively supported by IE 6/7/8. Rendering <a href="javascript:void(0);" onClick="var o=document.getElementById('url'); o.value='http://www.treefam.org/cgi-bin/getdata.pl?ac=TF105088&f=clean.nhx'; xss_query(o.value); document.getElementById('nhx').focus();">this tree</a> on IE 8 is 100-fold slower than on Chrome/Opera/Safari.</p>
+
+<h2>Usage</h2>
+<ul>
+  <li>To view a phylogenetic tree, paste the tree in the <a href="http://en.wikipedia.org/wiki/Newick_format">Newick format</a> to the <a href="javascript:void(0);" onClick="document.getElementById('nhx').focus();">Input area</a> (or use the <a href="javascript:void(0);" onClick="document.getElementById('nhx').value=document.getElementById('nhx-ex').value;kn_actions.plot_str();">example</a>), click the canvas area and select "Draw".
+  <li>Clicking the white area in the canvas will bring up a popup menu, allowing you to:
+	<ul>
+	  <li><b>Draw</b>. Draw/redraw the tree with the current settings:
+	  	<ul>
+			<li><b>Width</b>. The width of the image. For the rectangle view, the height of the image will be adjust automatically.	For the circular view, the height always equals the width.
+			<li><b>Font size</b>. For the circular view, this is the maximum the font size. The actual font size will be adjusted such that there is no overlaps between leaves.
+			<li><b>Spacing</b>. The spacing between leaves. Not effective in the circular view.
+			<li><b>2nd label</b>. The regular expression to match the secondary label of an internal node. Not effective in the circular view.
+			<li><b>Pylogram</b>. Check this to ignore the branch lengths.
+			<li><b>Circular</b>. Check this to switch to the circular layout.
+		</ul>
+	  <li><b>PNG</b>. Expore the tree picture as a PNG image.
+	  <li><b>Undo/Redo</b>. Undo the most recent editing. Only one undo is allowed.
+	  <li><b>Search</b>. Search for leaves matching a regular expression.
+	</ul>
+  <li>Clicking a node will bring up a popup menu, allowing you to perform the following actions:
+	<ul>
+	  <li><b>Swap</b>. Click an internal node to swap its children.
+	  <li><b>Ladderize</b>. Click a node to sort the clade such that the deeper leaves tend to be placed higher in the plot; in case of a tie, a leaf with lexicographically smaller names tends to be placed ahead.
+	  <li><b>Collapse</b>. Click a node to collapse/uncollapse all its descendants to one node.
+	  <li><b>Reroot</b>. Click a node to put the root in the middle of the edge between the node and its parent.
+	  <li><b>Move</b>. Click two nodes to prune the subtree descending from the first node and then regraft it to the edge between the second node and its parent.
+	  <li><b>Remove</b>. Click a node to delete it and all its descendants.
+	  <li><b>Multifurcate</b>. Click a node to multifurcate its parent node.
+	  <li><b>Highlight</b>. Click a node to highlight the entire clade. When a clade is highlighted, the Newick substring corresponding to the clade will be selected in the Input box. Given a huge tree, the selected text may not been seen in Opera, Chrom and Safari. In this case, one may need to scroll back a little to see the selected text.
+	</ul>
+</ul>
+<!--
+<h2>Technical Notes</h2>
+<ul>
+  <li>Cross-domain Ajax. Due to the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a>, modern web browsers prohibit cross-domain Ajax. Thus from Javascript, one cannot easily retrieve the content of a URI to an external domain. The typical solution to this is to set up a proxy, which requires server side support. Another solution, as is used in this page, is to <a href="http://alvinabad.wordpress.com/2009/02/13/feb13/">make use of the &lt;script&gt; tag</a> and to use <a href="http://developer.yahoo.com/yql/">YQL</a> as the gateway. The three functions with the "xss_" prefix in <a href="knhx.js">knhx.js</a> shows how to implement this.
+</ul>
+
+<h2>Download</h2>
+<p>Jstree works without network connections. The tree image is rendered by the web brower rather than by a remote server. One can grab <a href="download/jstree.zip">jstree.zip</a>, open the HTML page and do all the edits locally. This zip file contains five files:</p>
+<ul>
+  <li><a href="jstree.html">jstree.html</a>, this page, is for all static contents.
+  <li><a href="knhx.js">knhx.js</a> is the library for parsing, plotting and manipulating trees. It also responses to all mouse interactions.
+  <li><a href="menu.js">menu.js</a> is a small Javascript library for simple popup menus, adpated from the <a href="http://www.dynamicdrive.com/dynamicindex1/popit.htm">Pop-it</a> library.
+  <li><a href="canvastext.js">canvastext.js</a> is a small library for drawing texts in Canvas. It is possible to use the system fonts to drop the dependency to this library. For some combinations of OS/browser, doing this may help efficiency. However, old IE does not support canvas texts. The font in this library also looks more beautiful.
+  <li><a href="excanvas.js">excanvas.js</a>, from the <a href="http://code.google.com/p/explorercanvas/">ExplorerCanvas</a> project, is an emulator of <a href="http://en.wikipedia.org/wiki/Canvas_element">canvas</a> for IE. For Chrome/Firefox/Safari/Opera, this library is not loaded.
+</ul>
+-->
+<h2>License</h2>
+<p>This page and the knhx.js JavaScript is written by <a href="http://lh3lh3.users.sourceforge.net">Heng Li</a>. The page and the script are released under the MIT/X11 license. Canvastext.js is acquired <a href="http://jim.studt.net/canvastext/">here</a>. It is also open source.</p>
+</div>
+<input type="button" id="toggle-usage" value="Hide Tree Plotter Description" onClick="toggle_usage();">
+<hr color="#cccccc" noShade SIZE="1">
+</div>
+<!-- Documents end here -->
+
+<!-- input type="button" value="Draw Original Tree" onClick="document.getElementById('nhx').value=document.getElementById('nhx-ex').value;kn_actions.plot_str();" -->
+<input type="button" value="Draw Tree" onClick="document.getElementById('nhx').value=document.getElementById('nhx').value;kn_actions.plot_str();document.getElementById('download-tree').disabled=false;">
+<input type="button" value="Download Tree" onClick="download()" disabled id="download-tree">
+<a id="download" download="Data_a.png"></a>
+
+<!--<input type="button" value="Select" onClick="document.getElementById('nhx').select()">
+<input type="button" value="Clear" onClick="document.getElementById('nhx').value=''">
+&nbsp;&nbsp;&nbsp;
+
+<input id="url" size="40" value="http://www.treefam.org/cgi-bin/getdata.pl?ac=TF105088&f=clean.nhx">
+<input type="button" value="Connect" onClick="xss_query(document.getElementById('url').value);">
+&nbsp;&nbsp;&nbsp;
+<span id="n_leaves" style="color: gray;"></span>
+<span id="runtime" style="color: gray;"></span>
+-->
+
+</p>
+<p><b>Newick Tree:</b></p>
+<textarea id="nhx" rows="10" cols="120" wrap="hard" style="overflow-x: hidden;">
+((((ile_04_206_1.bmp,ile_04_206_2.bmp),ile_04_206_3.bmp),((inf_03_136_2.bmp,inf_03_136_4.bmp),inf_03_136_3.bmp)),(((ith_02_111_1.bmp,(ith_02_111_3.bmp,ith_02_111_4.bmp)),((lib_03_159_10.bmp,lib_03_159_8.bmp),(lib_03_159_6.bmp,lib_03_159_9.bmp))),ith_02_111_2.bmp));
+</textarea>
+<hr color="#cccccc" noShade SIZE="1">
+<canvas id="canvas" width="800" height="100"></canvas>
+<br>
+
+<textarea id="nhx-ex" style="display: none">
+((((ile_04_206_1.bmp,ile_04_206_2.bmp),ile_04_206_3.bmp),((inf_03_136_2.bmp,inf_03_136_4.bmp),inf_03_136_3.bmp)),(((ith_02_111_1.bmp,(ith_02_111_3.bmp,ith_02_111_4.bmp)),((lib_03_159_10.bmp,lib_03_159_8.bmp),(lib_03_159_6.bmp,lib_03_159_9.bmp))),ith_02_111_2.bmp));
+</textarea>
+<p><b>Tree:</b></p>
+</body>
+</html>
