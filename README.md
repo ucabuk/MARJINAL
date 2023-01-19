@@ -1,4 +1,4 @@
-**# MARJINALv0.1**
+# **MARJINALv0.1**
 
 **## DOCUMENTATION**
 
