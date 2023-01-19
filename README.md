@@ -2,9 +2,9 @@
 
 ## **DOCUMENTATION**
 
-##### Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, there should be only one object in each frame. 
+Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, there should be only one object in each frame. 
 
-###### Secondly, if Marjinal suddenly closes while running, this may be due to a high dimensional image (very high size) between samples.
+Secondly, if Marjinal suddenly closes while running, this may be due to a high dimensional image (very high size) between samples.
 
 ### **HOW TO PREPARE DATASET**
 
