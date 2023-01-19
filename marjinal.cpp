@@ -87,8 +87,7 @@ inline int levensthein_distance()
 
                     return dp[nL][mL];
 }
-//Freeman chain code icin yon tayini yaptim.
-//Burasi en son kontrol edilecek ->> 1.Noktalar dogru bir sekilde mi ilerliyor ? 2. Baslangic noktasini belirleme ? - Bunlar duruma gore eklenebilir.
+//Point-based matrix
 Point next(const Point &p, uchar code){
     int o[8*2] = {0,-1, 1,-1, 1,0, 1,1, 0,1, -1,1, -1,0, -1,-1};
     return Point(p.x+o[code*2], p.y+o[code*2+1]);
@@ -101,7 +100,8 @@ void reconstruct(const vector<uchar> &_chain, vector<Point> &contours, Point off
         offset = p;
     }
 }
-uchar encode(const Point &a, const Point &b) { // uchar kullanýldý o yüzden 0,255 aralýðý dýþýndakiler çevrilmeyecek.
+//Freeman rotation
+uchar encode(const Point &a, const Point &b) {
 	uchar up    = (a.y > b.y);
     uchar left  = (a.x > b.x);
     uchar down  = (a.y < b.y);
@@ -109,7 +109,7 @@ uchar encode(const Point &a, const Point &b) { // uchar kullanýldý o yüzden 0
     uchar equx  = (a.y == b.y);
     uchar equy  = (a.x == b.x);
 
-    return (up    and equy)  ? 0 :  // kuzey
+    return (up    and equy)  ? 0 :  // north
            (up    and right) ? 1 :  // kuzey dogu
            (right and equx)  ? 2 : // dogu
            (down  and right) ? 3 : // guney dogu
@@ -118,7 +118,7 @@ uchar encode(const Point &a, const Point &b) { // uchar kullanýldý o yüzden 0
            (left  and equx)  ? 6 : // batý
                               7 ;  // kuzey batý
 }
-//konturleri saydirip freeman chain code ile eslestirdim
+//counting countour and matching with freeman-chain-code
 void cv_vector(vector<uchar> relative3, string filename){ // vector u
 	ostringstream vts;
 	if (!relative3.empty())
@@ -141,15 +141,17 @@ void chain_freeman(const vector<Point> &contours, vector<uchar> &_chain) {
 	}
 	_chain.push_back(encode(contours[i],contours[0]));
 }
+
+//this area will not be considered in the executable file, however, It should be kept for the next versions in any case.
 /*int xrows(){
-	boost::filesystem::path full_path(boost::filesystem::current_path()); // çalýþtýðým path.
+	boost::filesystem::path full_path(boost::filesystem::current_path()); // the path you are working ong.
 		path p(full_path);
-	    std::ofstream x("name.txt"); //txt dosyasý yarattým bunu dosyalarý array içine almak için.
+	    std::ofstream x("name.txt"); //created txt to store file names into array. 
 	    int sample_size; // dizindeki dosyalarýn sayýsýný tutmak için oluþturuldu.
 	    string extension = ".jpg"; //istediðim uzantýyý yazdým.
 	    for (auto i = directory_iterator(p); i != directory_iterator(); i++)
 	    {
-	    	if (!is_directory(i->path()) && i -> path().extension() == extension) // hem dizinleri manipüle ettim hem de sadece jpg dosyalar alýndý.
+	    	if (!is_directory(i->path()) && i -> path().extension() == extension) 
 	    		{
 	    		x << i->path().filename().string() << endl;
 	    		++sample_size;
@@ -237,7 +239,7 @@ double a;
 
 for( size_t i = 0; i< contours.size(); i++ ) // iterate through each contour.
     {
-         a=contourArea( contours[i],false); //  Find the area of contour
+        a=contourArea( contours[i],false); //  Find the area of contour
         if(a>largest_area)
         {
             largest_area=a;
@@ -250,7 +252,7 @@ for( size_t i = 0; i< contours.size(); i++ ) // iterate through each contour.
       //minRect[i] = minAreaRect( Mat(contours[i]) );
     //for( int i = 0; i< contours.size(); i++ )
      //{
-        //cout<<"  Size ="<<minRect[i].size<<endl; //The width may interchange according to contour alignment
+        //cout<<"  Size ="<<minRect[i].size<<endl; //The width may interchange according to the contour alignment
      //}
     ///////
     // ------------
@@ -271,23 +273,24 @@ void image_processing(Mat source, const string xa, const string xb){
 
 	Mat dst = source;
 	Mat gray;
-	cvtColor(dst,gray,CV_BGR2GRAY);
+	cvtColor(dst,gray,CV_BGR2GRAY); //convert it to gray
 	Mat binary;
-	Mat se1 = getStructuringElement(MORPH_RECT, Size(1,1));
-	Mat se2 =  getStructuringElement(MORPH_RECT, Size(5,5));
+	Mat se1 = getStructuringElement(MORPH_RECT, Size(1,1)); //matrices size for noisings in the image
+	Mat se2 =  getStructuringElement(MORPH_RECT, Size(5,5)); //matrices size for noisings in the image
 	Mat mask;
-	morphologyEx(gray,binary,MORPH_CLOSE,se1);
-	threshold(binary, mask, 200,255, CV_THRESH_BINARY_INV | CV_THRESH_OTSU);
+	morphologyEx(gray,binary,MORPH_CLOSE,se1); //gray to binary
+	threshold(binary, mask, 200,255, CV_THRESH_BINARY_INV | CV_THRESH_OTSU); //binary threshold. This was the diffucult part and the best selection.
+	//here I created manual matrices to avoid noise in the image, because other matrices sizes was not suitable to fix it.
 	Mat kernel = (Mat_<float>(3,3) <<
 			1, 1,1,
 		   	1,-8,1,
 		   	1, 1,1);
-	morphologyEx(mask,mask,MORPH_DILATE,se1);
-	morphologyEx(mask,mask,MORPH_ERODE,kernel);
-	morphologyEx(mask,mask,MORPH_CLOSE,kernel);
-	morphologyEx(mask,mask,MORPH_OPEN,kernel);
+	morphologyEx(mask,mask,MORPH_DILATE,se1); //se1
+	morphologyEx(mask,mask,MORPH_ERODE,kernel); //manual matrices;kernel
+	morphologyEx(mask,mask,MORPH_CLOSE,kernel); //manual matrices;kernel
+	morphologyEx(mask,mask,MORPH_OPEN,kernel); //manual matrices;kernel
+	
 	Mat sharp = mask;
-
 
    	filter2D(mask,imgLaplacian, CV_32F, kernel);
    	mask.convertTo(sharp, CV_32F);
@@ -296,7 +299,7 @@ void image_processing(Mat source, const string xa, const string xb){
    	imgLaplacian.convertTo(imgLaplacian, CV_8UC3);
 
     vector<vector<Point>> contours;
-    vector<vector<Point>> contours2(1);//EKSTRA BOLUM
+    vector<vector<Point>> contours2(1); //Extra
     vector <uchar> chaincode;
     vector <uchar> relative;
     vector <int> shape;
@@ -306,8 +309,8 @@ void image_processing(Mat source, const string xa, const string xb){
     int largest_contour_index=0;
     Mat canny;
     Canny(imgLaplacian, canny, 50,255,5);
-    morphologyEx(imgLaplacian,imgLaplacian,MORPH_CLOSE,se1);
-    findContours(imgLaplacian,contours,hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+    morphologyEx(imgLaplacian,imgLaplacian,MORPH_CLOSE,se1); //again, close noises in the image using se1 matrices.
+    findContours(imgLaplacian,contours,hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE); //find and store all contours in the binary outline images using CV_CHAIN_APPROX_NONE (the other options are absent or does not work).
     double a = 0;
 
     for( size_t i = 0; i< contours.size(); i++ ) // iterate through each contour.
@@ -345,15 +348,15 @@ void image_processing(Mat source, const string xa, const string xb){
     	shape.push_back(shape1);
     }
     cv_vector(chaincode,xa);
-    /// vector u stringe ceviren bolum.
+    /// convert vector to string for freeman chain
     cv_vector(relative,xb);
-    /// vector u stringe ceviren bolum.
+    /// convert vector to string for relative chain
 
     Size size(imgLaplacian.cols+200,imgLaplacian.rows+200);
     resize(draw2,draw,size);
     reconstruct(chaincode,contours2[0],Point(imgLaplacian.cols/2,10));
     drawContours(draw, contours2, -1, Scalar(255, 255, 255), 1);
-    //until this line, images is drawn by chain code.
+    //until this line, the images are drawn by the chain code.
 
 
     for(size_t i=0; i<relative.size(); i++){
@@ -373,28 +376,28 @@ string convertor_string(string file){
 	return line.str();
 }
 void current_directory(){
-	boost::filesystem::path full_path(boost::filesystem::current_path()); // çalýþtýðým path.
+	boost::filesystem::path full_path(boost::filesystem::current_path()); // the path you are working on.
 
 	path p(full_path/directory);
 
-	string result_directory = "results_of_" + directory; //sonuçlarýn koyulduðu klasor
-	string output_directory = "output_image"; //çýkan sonuç resimlerin koyulduðu klasor
+	string result_directory = "results_of_" + directory; //the folder where is created the results.
+	string output_directory = "output_image"; //the folder where is created the images.
 
-	boost::filesystem::create_directory(full_path/directory/result_directory); //sonuçlarýn koyulduðu klasor
+	boost::filesystem::create_directory(full_path/directory/result_directory); //the folder where is created the results.
 
-	boost::filesystem::create_directory(full_path/directory/result_directory/output_directory); //resimlerin koyuldugu klasor
+	boost::filesystem::create_directory(full_path/directory/result_directory/output_directory); //the folder where is created the images.
 
 	path directoryy(full_path/directory);
 
-	std::ofstream x(directory+"\\"+"name.txt"); //txt dosyasý yarattým, dosyalarý array içine almak için.
-    int sample_size; // dizindeki dosyalarýn sayýsýný tutmak için oluþturuldu.
+	std::ofstream x(directory+"\\"+"name.txt"); //created txt file to keep file names into array.
+    int sample_size; //for how many files in the dir
     string extension = ".bmp";
     string extension2 = ".jpg";
-    string extension3 = ".png";//istediðim uzantýyý yazdým.
+    string extension3 = ".png";//possible extensions
 
     for (auto i = directory_iterator(p); i != directory_iterator(); i++)
     {
-    	if (!is_directory(i->path()) && (i -> path().extension() == extension)) // hem dizinleri manipüle ettim hem de sadece jpg dosyalar alýndý.
+    	if (!is_directory(i->path()) && (i -> path().extension() == extension)) // the all extensions are considered.
     		{
     		x << i->path().filename().string() << endl;
     		++sample_size;
@@ -419,8 +422,8 @@ void current_directory(){
     	std::getline(y,array[i],'\n');
     }
 
-    string chain= directory+"\\"+result_directory+"\\"+"chain.txt";
-    string relative=directory+"\\"+result_directory+"\\"+"relative.txt";
+	string chain= directory+"\\"+result_directory+"\\"+"chain.txt";
+	string relative=directory+"\\"+result_directory+"\\"+"relative.txt";
 	string shape=directory+"\\"+result_directory+"\\"+"shape.txt";
 
     for(int i=0; i<sample_size; i++){
@@ -525,7 +528,7 @@ void current_directory(){
     	         	}
     	}
 
-    	std::vector<std::vector<double >> matrix; //distance_matrix dizisi vektore çevirilmek için oluþturuldu 2 boyutlu vektor.
+    	std::vector<std::vector<double >> matrix; //convert distance matrices into vector format
     	matrix.resize(sample_size, vector<double >(sample_size));
 
     	    	for(int i = 0; i<matrix.size(); i++){
@@ -586,14 +589,14 @@ void current_directory(){
     	    	 */
 
 
-    	    	//insert kullanýlarak eklendikten sonra erase methoduyla ikinci index silinir,
-    	    	//geri kalan dizi, push_back methoduyla yeni bir diziye eklenir.
+    	    	//Second index is erased after added using insert,
+    	    	//rest sequence, new one is added using push_back.
     	    	//
 
     	    	/*for(int i = 0; i<name.size(); i++){
     	    	cout << name[i];
     	    	}*/
-    	    	matrix.erase(matrix.begin() + col1); //ilgili satýr ve sütün siliniyor.
+    	    	matrix.erase(matrix.begin() + col1); //related rows and columns are erased. 
     	    	for(int i = 0; i<matrix.size(); i++) matrix[i].erase(matrix[i].begin() + col1);
     	    	string leftparent = "(";
     	    	string comma = ",";
@@ -612,8 +615,7 @@ void current_directory(){
     	    	template_col.resize(c_matrix.size());
     	    	std::vector <double> total;
     	    	total.resize(c_matrix.size());
-    	    	 //matris'e kopyalanýp daha sonra içi temizlenecek.
-
+    	    	 //it is copied into matrices, then cleaned.
 
 
 
@@ -638,13 +640,13 @@ void current_directory(){
     	    					matrix[row1][j] = total[j];
     	    					matrix[j][row1] = total[j];
 
-    	    					 //bir önceki matriste minimum da eklendiði için [j][j] = 0 dan ayrý sayý oluyor.
+    	    					 //As the minimum is added in in the previous matrice, [j][j] is different with 0
     	    				}
 
     	    				/*else if(matrix[i][j] != 0 and matrix[j][i] != 0){
     	    					matrix[i][col1] = (c_matrix[row1][j] + c_matrix[i][col1]) / 2;
     	    					matrix[row1][j] = (c_matrix[j][row1] + c_matrix[col1][j]) / 2;
-    	    					matrix[j][j] = 0; //bir önceki matriste minimum da eklendiði için [j][j] = 0 dan ayrý sayý oluyor.
+    	    					matrix[j][j] = 0; //As the minimum is added in in the previous matrice, [j][j] is different with 0
     	    				}*/
     	    				else
     	    					matrix[i][j] = 0;
@@ -660,6 +662,8 @@ void current_directory(){
 
 
     	    	}while(matrix.size() > 1);
+	
+	    //jstree file is provided by Yasin, and will be opened and added the result in.
     	    string UPGMA = directory+"\\"+"jstree.html";
     	    string UPGMA_1 = directory+"\\"+"jstree1.html";
     	    std::ofstream ofp;
@@ -724,7 +728,7 @@ int main(int argc, char** argv){
 	std::ofstream chain;
 	std::ofstream l_chain;
 
-	l_chain.open(directory+"\\"+result_directory+"\\"+"length_of_chain.txt", ios::out | ios:: trunc); //bu bölümde oluþturulan dosyalarýn içerikleri temizleniyor.
+	l_chain.open(directory+"\\"+result_directory+"\\"+"length_of_chain.txt", ios::out | ios:: trunc); //the content of created files are cleaned.
 	relative.open(directory+"\\"+result_directory+"\\"+"relative.txt", ios::out | ios::trunc);
 	chain.open(directory+"\\"+result_directory+"\\"+"chain.txt", ios::out | ios::trunc);
 
