@@ -20,4 +20,4 @@ Secondly, if Marjinal suddenly closes while running, this may be due to a high d
 5. Run Marjinal.exe. Once It is run, you will see the black screen. Type the name of the folder where the leaf samples are located. Once it starts, you can follow from the bar how far the process are progressed. 
 6. When all the processes are done, you will be directed to the web browser to visualize the result. To get the tree result, firstly click "Draw Tree" button. Then, you can download the result by clicking "Download Tree" button.  
 7. There will be a new folder, which is called as "Results_of_[name of the folder]", that is created after the process is done. 
-8. Press any key on the black screen to turn off Marjinal.
+8. Press any key on the black screen to turn off MARJINAL.
