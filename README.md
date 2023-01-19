@@ -2,13 +2,14 @@
 
 ## **DOCUMENTATION**
 
-Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, there should be only one object in each frame. 
+##### Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, there should be only one object in each frame. 
 
-Secondly, if Marjinal suddenly closes while running, this may be due to a high dimensional image (very high size) between samples.
+###### Secondly, if Marjinal suddenly closes while running, this may be due to a high dimensional image (very high size) between samples.
 
 ### **HOW TO PREPARE DATASET**
 
-1- samples are firstly scanned in black and white one by one. (Min. recommended resolution: 300 dpi)  2- Make sure that the samples are not folded and incomplete any parts regarding their structure since every margin is important for the analysis. Moreover, since the folding causes shadow, this can affect the results. So It may be biased.
+1. Samples are firstly scanned in black and white one by one. (Min. recommended resolution: 300 dpi)  
+2. Make sure that the samples are not folded and incomplete any parts regarding their structure since every margin is important for the analysis. Moreover, since the folding causes shadow, this can affect the results. So It may be biased.
 
 ### **HOW TO RUN MARJINAL**
 
