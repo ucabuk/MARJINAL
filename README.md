@@ -1,6 +1,6 @@
-# MARJINALv0.1
+**MARJINALv0.1**
 
-DOCUMENTATION
+**DOCUMENTATION**
 
 Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, there should be only one object in each frame. 
 
