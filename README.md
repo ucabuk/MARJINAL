@@ -2,7 +2,7 @@
 
 ### **REQUIRED DLL FILES**
 
-Note that you have to download those dll files to run the executable file.
+Note that you have to download the dll files to run the executable file.
 
 libatomic-1.dll, libgcc_s_seh-1.dll, libgfortran-4.dll, libgomp-1.dll, libopencv_calib3d330.dll, libopencv_core330.dll, libopencv_dnn330.dll, libopencv_features2d330.dll, libopencv_flann330.dll, libopencv_highgui330.dll, libopencv_imgcodecs330.dll, libopencv_imgproc330.dll, libopencv_ml330.dll, libopencv_objdetect330.dlllibopencv_objdetect330.dll, libopencv_photo330.dll, libopencv_shape330.dll, libopencv_stitching330.dll, libopencv_superres330.dll, libquadmath-0.dll, libssp-0.dll, libstdc++-6.dll, libwinpthread-1.dll
 
