@@ -18,7 +18,7 @@ Secondly, if Marjinal suddenly closes while running, this may be due to a high d
 1. Samples are firstly scanned in black and white one by one. (Min. recommended resolution: 300 dpi)  
 2. Make sure that the samples are not folded and incomplete any parts regarding their structure since every margin is important for the analysis. Moreover, since the folding causes shadow, this can affect the results. So It may be biased.
 
-### **HOW TO RUN MARJINAL**
+### **HOW TO RUN MARJINAL EXECUTABLE FILE**
 
 1. please note that Marjinal can be only executed on Windows 64-bit system. After downloading the zip file, please unzip it.  
 2. In the folder where Marjinal is located, there are files; those are Marjinal.exe, .dll extensions, and javascript files. Please do not remove or move any files to any directory. Keep them into the directory where it is located.  
