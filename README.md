@@ -1,5 +1,11 @@
 # **MARJINAL**
 
+### **Recommendation**
+
+If you want to directly run Marjinal, just download the executable folder then unzipped the file and run the marjinal.exe.
+
+### How to compile C++ source in your Windows 64-bit system and run Marjinal:
+
 ### **REQUIRED DLL FILES**
 
 Note that you have to download the dll files to run the executable file.
@@ -10,23 +16,23 @@ HOW TO FIND DLL FILES OWN YOUR WAY AND DOWNLOAD THEM:
 
 - libopencv_core330.dll, libopencv_imgcodecs330.dll, libopencv_imgproc330.dll
 
-DLLs for C++ compiler:
+Setup MinGW to build and compile Marjinal.
 
 - libstdc++-6.dll, libwinpthread-1.dll, libgcc_s_seh-1.dll.
 
 
-## **DOCUMENTATION**
+## **What is Marjinal?**
 
 Marjinal can analyze the objects one by one, not merged objects in a single frame. Therefore, each frame contain only one object.
 
 *if Marjinal suddenly closes while running, this may be due to a huge dimensional image (very high size) between samples.
 
-### **HOW TO PREPARE DATASET**
+### **Preparation of dataset**
 
 1. Samples are firstly scanned in black and white format one by one. (Min. recommended resolution: 300 dpi)  
 2. Make sure that the samples are not folded and incomplete any parts regarding their structure since every margin is important for the analysis. Moreover, since the folding causes shadow, this can affect the results. So It may be biased.
 
-### **HOW TO RUN MARJINAL EXECUTABLE FILE**
+### **Running Marjinal using exe file**
 
 1. please note that Marjinal can be only executed on Windows 64-bit system. After downloading the zip file, please unzip it.  
 2. In the folder where Marjinal is located, there are files; those are Marjinal.exe, .dll extensions, and javascript files. Please do not remove or move any files to any directory. Keep them into the directory where it is located.  
