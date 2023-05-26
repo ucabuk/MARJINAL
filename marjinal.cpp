@@ -100,8 +100,6 @@ uchar encode(const Point &a, const Point &b) {
 	(left  and equx)  ? 6 : // the west
 	7 ;  // the north west
 }
-//counting countour and matching with freeman-chain-code
-
 void cv_vector(vector<uchar> relative3, string filename){ // vector u
 	ostringstream vts;
 	if (!relative3.empty())
@@ -124,7 +122,6 @@ void chain_freeman(const vector<Point> &contours, vector<uchar> &_chain) {
 	}
 	_chain.push_back(encode(contours[i],contours[0]));
 }
-
 void image_processing(Mat source, const string xa, const string xb){
 
 	Mat dst = source;
@@ -231,7 +228,6 @@ string convertor_string(string file){
 	line << data.rdbuf();
 	return line.str();
 }
-
 void current_directory(){
 	boost::filesystem::path full_path(boost::filesystem::current_path()); // the path you are working on.
 
