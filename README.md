@@ -4,7 +4,7 @@
 
 If you want to directly run Marjinal, just download the executable folder then unzip the file and run the marjinal.exe. (**Automated**)
 
-#### How can you run compile C++ source in your Windows 64-bit system and run Marjinal? - (Manual)
+### How can you run compile C++ source in your Windows 64-bit system and run Marjinal? - (Manual)
 
 ### **REQUIRED DLL FILES**
 
