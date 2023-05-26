@@ -4,13 +4,14 @@
 
 Note that you have to download the dll files to run the executable file.
 
-HOW TO FIND DLL FILES OWN YOUR WAY AND DOWNLOAD THEM.
+HOW TO FIND DLL FILES OWN YOUR WAY AND DOWNLOAD THEM:
 
-You can install the OPENCV v3.3 via https://opencv.org/releases/ for Windows and you can copy dll files from the folder you installed OPENCV.  
+- You can install the OPENCV v3.3 via https://opencv.org/releases/ for Windows and you can copy dll files from the folder you installed OPENCV.  
 
 libopencv_core330.dll, libopencv_imgcodecs330.dll, libopencv_imgproc330.dll
 
 DLLs for C++ compiler:
+
 libstdc++-6.dll, libwinpthread-1.dll, libgcc_s_seh-1.dll.
 
 
