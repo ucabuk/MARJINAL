@@ -59,11 +59,11 @@ inline int levensthein_distance()
 			}
 			else{
 				dp[i][j] = minimum
-						(
-								dp[i-1][j] + 1,
-								dp[i][j-1] + 1,
-								dp[i-1][j-1] + 1
-						);
+            			  (
+					dp[i-1][j] + 1,
+					dp[i][j-1] + 1,
+    					dp[i-1][j-1] + 1
+				);
 			}
 		}
 	}
@@ -92,13 +92,13 @@ uchar encode(const Point &a, const Point &b) {
 	uchar equy  = (a.x == b.x);
 
 	return (up    and equy)  ? 0 :  // the north
-			(up    and right) ? 1 :  // the north east
-					(right and equx)  ? 2 : // the east
-							(down  and right) ? 3 : // the south eas
-									(down  and equy)  ? 4 : // the south
-											(left  and down)  ? 5 : // the south west
-													(left  and equx)  ? 6 : // the west
-															7 ;  // the north west
+	(up    and right) ? 1 :  // the north east
+	(right and equx)  ? 2 : // the east
+	(down  and right) ? 3 : // the south eas
+	(down  and equy)  ? 4 : // the south
+	(left  and down)  ? 5 : // the south west
+	(left  and equx)  ? 6 : // the west
+	7 ;  // the north west
 }
 //counting countour and matching with freeman-chain-code
 
