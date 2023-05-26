@@ -2,15 +2,15 @@
 
 ### **Recommendation**
 
-If you want to directly run Marjinal, just download the executable folder then unzip the file and run the marjinal.exe.
+If you want to directly run Marjinal, just download the executable folder then unzip the file and run the marjinal.exe. (**Automated**)
 
-### How to compile C++ source in your Windows 64-bit system and run Marjinal:
+### How can you run compile C++ source in your Windows 64-bit system and run Marjinal? - (Manual)
 
 ### **REQUIRED DLL FILES**
 
 Note that you have to download the dll files to run the executable file.
 
-HOW TO FIND DLL FILES OWN YOUR WAY AND DOWNLOAD THEM:
+How can you find DLLs and download them properly?
 
 - You can install the OPENCV v3.3 via https://opencv.org/releases/ for Windows and you can copy dll files from the folder you installed OPENCV.  
 
